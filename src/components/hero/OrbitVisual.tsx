@@ -120,7 +120,6 @@ export function OrbitVisual() {
                     },
                     duration: 3.2,
                     repeat: -1,
-                    yoyo: true,
                     ease: "sine.inOut",
                   })
                 );
