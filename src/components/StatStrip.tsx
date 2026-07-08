@@ -45,13 +45,8 @@ function StatNumber({ stat }: { stat: Stat }) {
   useEffect(() => {
     if (!isInView) return;
 
-    if (reducedMotion) {
-      setDisplay(stat.value);
-      return;
-    }
-
     const controls = animate(0, stat.value, {
-      duration: 1.4,
+      duration: reducedMotion ? 0 : 1.4,
       ease: [0.22, 1, 0.36, 1],
       onUpdate: (latest) => setDisplay(Math.round(latest)),
     });
