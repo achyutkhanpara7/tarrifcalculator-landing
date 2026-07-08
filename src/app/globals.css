@@ -1,26 +1,77 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand */
+  --color-primary: #ef2d3e;
+  --color-primary-hover: #d91a2a;
+  --color-primary-dark: #c41230;
+  --color-primary-light: rgba(239, 45, 62, 0.08);
+  --color-primary-mid: rgba(239, 45, 62, 0.12);
+  --color-primary-border: rgba(239, 45, 62, 0.32);
+  --color-primary-glow: rgba(239, 45, 62, 0.14);
+
+  /* Surfaces */
+  --color-surface-white: #ffffff;
+  --color-surface-alt: #f7f7f8;
+  --color-surface-cream: #faf6ef;
+
+  /* Text */
+  --color-text-primary: #0d0f14;
+  --color-text-secondary: rgba(13, 15, 20, 0.7);
+  --color-text-muted: rgba(13, 15, 20, 0.44);
+  --color-text-on-primary: #ffffff;
+
+  /* Border */
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-strong: rgba(0, 0, 0, 0.12);
+
+  /* Status */
+  --color-ok: #047857;
+  --color-ok-bg: rgba(4, 120, 87, 0.08);
+  --color-ok-border: rgba(4, 120, 87, 0.22);
+  --color-warn: #a16207;
+  --color-warn-bg: rgba(161, 98, 7, 0.08);
+  --color-warn-border: rgba(161, 98, 7, 0.22);
+  --color-error: #ef2d3e;
+  --color-error-bg: rgba(239, 45, 62, 0.08);
+  --color-error-border: rgba(239, 45, 62, 0.32);
+
+  /* Radius */
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --color-primary-dark: var(--color-primary-dark);
+  --color-surface-alt: var(--color-surface-alt);
+  --color-surface-cream: var(--color-surface-cream);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-muted: var(--color-text-muted);
+  --font-sans: var(--font-plus-jakarta-sans);
+  --font-serif: Cambria, "Hoefler Text", "Times New Roman", serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-surface-white);
+  color: var(--color-text-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
