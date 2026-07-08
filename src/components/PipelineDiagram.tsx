@@ -111,7 +111,7 @@ export function PipelineDiagram() {
       });
 
       if (inputCircle) {
-        tl.to(inputCircle, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out" });
+        tl.to(inputCircle, { strokeDashoffset: 0, duration: 0.65, ease: "power2.out" });
       }
 
       STAGES.forEach((stage, i) => {
@@ -121,32 +121,32 @@ export function PipelineDiagram() {
         const caption = root.querySelector(`[data-caption][data-stage="${i}"]`);
 
         if (arrow) {
-          tl.to(arrow, { strokeDashoffset: 0, duration: 0.2, ease: "power2.out" });
+          tl.to(arrow, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out" });
         }
         if (outline) {
-          tl.to(outline, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out" });
+          tl.to(outline, { strokeDashoffset: 0, duration: 0.75, ease: "power2.out" });
         }
         if (stageBullets.length) {
           tl.to(stageBullets, {
             opacity: 1,
             x: 0,
-            duration: 0.18,
-            stagger: 0.05,
+            duration: 0.4,
+            stagger: 0.15,
             ease: "power2.out",
           });
         }
 
         if (stage.terminal) {
           if (terminalFill) {
-            tl.to(terminalFill, { opacity: 1, duration: 0.2, ease: "power1.inOut" });
+            tl.to(terminalFill, { opacity: 1, duration: 0.55, ease: "power1.inOut" });
           }
           if (terminalText.length) {
-            tl.to(terminalText, { color: "#FFFFFF", duration: 0.2, ease: "power1.inOut" }, "<");
+            tl.to(terminalText, { color: "#FFFFFF", duration: 0.55, ease: "power1.inOut" }, "<");
           }
         }
 
         if (caption) {
-          tl.to(caption, { opacity: 1, duration: 0.15 });
+          tl.to(caption, { opacity: 1, duration: 0.4 });
         }
       });
     }, sectionRef);
@@ -157,14 +157,14 @@ export function PipelineDiagram() {
   return (
     <section
       ref={sectionRef}
-      className="bg-[color:var(--color-surface-alt)] px-6 py-16 lg:px-8 lg:py-28"
+      className="bg-white px-6 py-16 lg:px-8 lg:py-28"
     >
       <div className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.8 }}
           className="mx-auto mb-16 max-w-2xl text-center lg:mb-20"
         >
           <h2 className="text-3xl font-extrabold tracking-tight text-[color:var(--color-text-primary)] sm:text-4xl">
@@ -203,8 +203,8 @@ function HighlightPhrase({ children }: { children: React.ReactNode }) {
         whileInView={{ scaleX: 1 }}
         viewport={{ once: true }}
         transition={{
-          duration: reducedMotion ? 0 : 0.45,
-          delay: reducedMotion ? 0 : 0.25,
+          duration: reducedMotion ? 0 : 0.9,
+          delay: reducedMotion ? 0 : 0.4,
           ease: [0.22, 1, 0.36, 1],
         }}
         style={{ originX: 0 }}

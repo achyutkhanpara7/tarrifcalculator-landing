@@ -20,8 +20,8 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <PipelineDiagram />
         <StatStrip />
+        <PipelineDiagram />
         <LiveDemoWidget />
 
         <div id="platform">
