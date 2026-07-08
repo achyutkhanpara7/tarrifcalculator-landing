@@ -86,9 +86,9 @@ function WaveTile({ patternId }: { patternId: string }) {
         d={RIDGE_LINE_PATH}
         fill="none"
         stroke="var(--color-primary)"
-        strokeOpacity={0.32}
+        strokeOpacity={0.22}
         strokeWidth={1.4}
-        style={{ filter: "drop-shadow(0 0 5px rgba(239,45,62,0.35))" }}
+        style={{ filter: "drop-shadow(0 0 5px rgba(239,45,62,0.25))" }}
       />
     </svg>
   );

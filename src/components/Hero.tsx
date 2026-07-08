@@ -1,9 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, PlayCircle } from "lucide-react";
+import { Plus } from "lucide-react";
 import { WaveBackground } from "./hero/WaveBackground";
-import { OrbitVisual } from "./hero/OrbitVisual";
+import { RouteVisual } from "./hero/RouteVisual";
 
 const HEADLINE_LINE_1 = "Classification you can defend.";
 const HEADLINE_LINE_2 = "Duty you can trust.";
@@ -82,24 +82,17 @@ export function Hero() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.68 }}
-            className="mt-9 flex flex-col gap-3.5 sm:flex-row sm:items-center"
+            className="mt-9"
           >
             <a
               href="#cta"
-              className="group inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-[linear-gradient(135deg,#F04255_0%,#EF2D3E_55%,#C41230_100%)] px-6 py-3.5 text-sm font-semibold text-white shadow-[0_4px_20px_rgba(239,45,62,0.28)] transition-transform duration-200 hover:scale-[1.03] active:scale-[0.97]"
+              className="group inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-[color:var(--color-text-primary)] px-6 py-3.5 text-sm font-semibold text-white transition-transform duration-200 hover:scale-[1.03] active:scale-[0.97]"
             >
-              Book a walkthrough
-              <ArrowRight
+              Book a demo
+              <Plus
                 size={16}
-                className="transition-transform duration-200 group-hover:translate-x-0.5"
+                className="transition-transform duration-200 group-hover:rotate-90"
               />
-            </a>
-            <a
-              href="#demo"
-              className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-[color:var(--color-border)] bg-white px-6 py-3.5 text-sm font-semibold text-[color:var(--color-text-primary)] transition-colors duration-200 hover:border-[color:var(--color-primary-border)] hover:text-[color:var(--color-primary)]"
-            >
-              <PlayCircle size={16} />
-              See it in action
             </a>
           </motion.div>
         </div>
@@ -110,7 +103,7 @@ export function Hero() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <OrbitVisual />
+          <RouteVisual />
         </motion.div>
       </div>
     </section>
