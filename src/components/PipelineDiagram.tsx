@@ -11,48 +11,73 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+type Accent = "red" | "green";
+
 interface Stage {
   key: string;
   title: string;
+  badge: string;
   bullets: string[];
   caption: string;
   terminal?: boolean;
+  accent?: Accent;
 }
+
+const ACCENT_COLORS: Record<Accent, { border: string; badgeBg: string }> = {
+  red: { border: "var(--color-primary)", badgeBg: "var(--color-primary-light)" },
+  green: { border: "var(--color-ok)", badgeBg: "var(--color-ok-bg)" },
+};
 
 const STAGES: Stage[] = [
   {
     key: "classify",
     title: "Classify",
+    badge: "HTS Code + Confidence",
     bullets: [
-      "Binding-ruling pre-check",
-      "Hybrid search: pgvector + CROSS",
-      "GRI rules engine (1, 3, 6)",
-      "Neo4j confusion-pair check",
+      "Checks for any existing binding rulings on your product",
+      "Searches the full HTS schedule to find the best match",
+      "Applies the official classification rules (GRI) in order",
+      "If the description is ambiguous, asks targeted questions to resolve it before continuing",
     ],
     caption: "Output: HTS Code + Confidence Tier",
   },
   {
     key: "calculate",
     title: "Calculate",
+    badge: "Total Duty + Fees",
     bullets: [
-      "FTA/USMCA eligibility",
-      "Base rate + overlay lookup",
-      "Anti-stacking: 232 vs 122",
-      "Line-item duty breakdown",
+      "Checks if your shipment qualifies for FTA or USMCA savings",
+      "Applies the base rate plus any active trade-action overlays (e.g., Section 301)",
+      "Prevents double-counting when multiple surcharges apply",
+      "Breaks down every fee line by line: duty, MPF, HMF",
     ],
     caption: "Output: Full Duty Stack + MPF/HMF",
   },
   {
     key: "file",
     title: "File & Ledger",
+    badge: "CBP Form 7501 Draft",
     bullets: [
-      "Pulls HTS code + duty stack directly",
-      "Auto-drafts CBP Form 7501",
-      "Hash-chained ledger entry written",
-      "Tamper-evident, query in seconds",
+      "Uses the confirmed HTS code and duty stack, no re-entry",
+      "Writes a tamper-evident ledger record the moment classification completes",
+      "Generates a ready-to-review CBP Form 7501 on demand from that record",
+      "Retrievable in seconds for audit or reuse",
     ],
     caption: "Output: CBP Form 7501 Draft",
     terminal: true,
+  },
+  {
+    key: "watchlist",
+    title: "Watchlist",
+    badge: "Live Rate Alerts",
+    bullets: [
+      "Saves the HTS code to your personal watchlist",
+      "Sends an alert when a rate, overlay, or trade program changes for that code",
+      "Tracks both base rate changes and Chapter 99 overlay changes (e.g., Section 301)",
+      "Covers your entire portfolio, not just the current shipment",
+    ],
+    caption: "Output: Rate Change Alerts",
+    accent: "green",
   },
 ];
 
@@ -71,6 +96,7 @@ export function PipelineDiagram() {
       const captions = root.querySelectorAll("[data-caption]");
       const terminalFill = root.querySelector("[data-terminal-fill]");
       const terminalText = root.querySelectorAll("[data-terminal-text]");
+      const terminalBadge = root.querySelector("[data-terminal-badge]");
 
       if (reducedMotion) {
         [inputCircle, ...Array.from(root.querySelectorAll<SVGGeometryElement>("[data-arrow], [data-box-outline]"))].forEach(
@@ -83,6 +109,7 @@ export function PipelineDiagram() {
         gsap.set(captions, { opacity: 1 });
         if (terminalFill) gsap.set(terminalFill, { opacity: 1 });
         if (terminalText.length) gsap.set(terminalText, { color: "#FFFFFF" });
+        if (terminalBadge) gsap.set(terminalBadge, { backgroundColor: "rgba(255,255,255,0.2)", color: "#FFFFFF" });
         return;
       }
 
@@ -143,6 +170,13 @@ export function PipelineDiagram() {
           if (terminalText.length) {
             tl.to(terminalText, { color: "#FFFFFF", duration: 0.55, ease: "power1.inOut" }, "<");
           }
+          if (terminalBadge) {
+            tl.to(
+              terminalBadge,
+              { backgroundColor: "rgba(255,255,255,0.2)", color: "#FFFFFF", duration: 0.55, ease: "power1.inOut" },
+              "<"
+            );
+          }
         }
 
         if (caption) {
@@ -155,10 +189,7 @@ export function PipelineDiagram() {
   }, [reducedMotion]);
 
   return (
-    <section
-      ref={sectionRef}
-      className="bg-white px-6 py-16 lg:px-8 lg:py-28"
-    >
+    <section ref={sectionRef} className="bg-white px-6 py-16 lg:px-8 lg:py-28">
       <div className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -168,21 +199,20 @@ export function PipelineDiagram() {
           className="mx-auto mb-16 max-w-2xl text-center lg:mb-20"
         >
           <h2 className="text-3xl font-extrabold tracking-tight text-[color:var(--color-text-primary)] sm:text-4xl">
-            How a Classification Becomes a Filing
+            How a Product Description Becomes a Ready-to-File Entry
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-[color:var(--color-text-secondary)]">
-            One pipeline, three sub-systems, <HighlightPhrase>no manual handoff</HighlightPhrase> between
-            them.
+            One connected pipeline. <HighlightPhrase>No copy-pasting, no manual hand-offs</HighlightPhrase>.
           </p>
         </motion.div>
 
-        <div ref={rootRef}>
-          <div className="flex flex-col items-center gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-0">
+        <div ref={rootRef} className="lg:overflow-x-auto lg:pb-2">
+          <div className="flex flex-col items-center gap-8 lg:mx-auto lg:w-max lg:flex-row lg:items-center lg:gap-0">
             <InputNode />
 
             {STAGES.map((stage, i) => (
               <Fragment key={stage.key}>
-                <Arrow index={i} />
+                <Arrow index={i} accent={stage.accent ?? "red"} />
                 <PipelineBox stage={stage} index={i} />
               </Fragment>
             ))}
@@ -234,22 +264,22 @@ function InputNode() {
           <FileText size={30} strokeWidth={1.75} />
         </div>
       </div>
-      <p className="max-w-[160px] text-center text-sm font-semibold leading-snug text-[color:var(--color-text-secondary)]">
-        Product description or historical entry
+      <p className="max-w-[170px] text-center text-sm font-semibold leading-snug text-[color:var(--color-text-secondary)]">
+        A product name, description, or a past entry number — that&apos;s all we need to start.
       </p>
     </div>
   );
 }
 
-function Arrow({ index }: { index: number }) {
+function Arrow({ index, accent }: { index: number; accent: Accent }) {
   return (
-    <div className="flex h-14 w-14 shrink-0 rotate-90 items-center justify-center lg:h-6 lg:w-14 lg:rotate-0 xl:w-20">
+    <div className="flex h-14 w-14 shrink-0 rotate-90 items-center justify-center lg:h-6 lg:w-14 lg:rotate-0">
       <svg viewBox="0 0 80 24" className="h-6 w-full" aria-hidden="true">
         <path
           data-arrow={index}
           d="M4,12 L60,12 M52,4 L68,12 L52,20"
           fill="none"
-          stroke="var(--color-primary)"
+          stroke={ACCENT_COLORS[accent].border}
           strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -260,8 +290,11 @@ function Arrow({ index }: { index: number }) {
 }
 
 function PipelineBox({ stage, index }: { stage: Stage; index: number }) {
+  const accent = stage.accent ?? "red";
+  const { border, badgeBg } = ACCENT_COLORS[accent];
+
   return (
-    <div className="relative w-full max-w-[300px] shrink-0 lg:w-[228px] xl:w-[248px]">
+    <div className="relative w-full max-w-[300px] shrink-0 lg:w-[196px]">
       <div className="relative rounded-2xl">
         {stage.terminal && (
           <div
@@ -280,29 +313,42 @@ function PipelineBox({ stage, index }: { stage: Stage; index: number }) {
             rx={16}
             ry={16}
             fill="none"
-            stroke="var(--color-primary)"
+            stroke={border}
             strokeWidth={1.75}
           />
         </svg>
 
-        <div className="relative p-5">
+        <div className="relative p-4">
           <p
             data-terminal-text={stage.terminal ? "" : undefined}
-            className="mb-3 text-xs font-bold uppercase tracking-wide text-[color:var(--color-primary)]"
+            className="mb-2.5 text-xs font-bold uppercase tracking-wide"
+            style={{ color: border }}
           >
             {stage.title}
           </p>
+
+          <span
+            data-terminal-badge={stage.terminal ? "" : undefined}
+            className="mb-3 inline-block rounded-full px-2.5 py-1 text-[10.5px] font-semibold"
+            style={{ backgroundColor: badgeBg, color: border }}
+          >
+            {stage.badge}
+          </span>
+
           <ul className="space-y-2.5">
             {stage.bullets.map((bullet) => (
-              <li
-                key={bullet}
-                data-bullet
-                data-stage={index}
-                data-terminal-text={stage.terminal ? "" : undefined}
-                className="flex items-start gap-2 text-[13px] font-medium leading-snug text-[color:var(--color-text-primary)]"
-              >
-                <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-current" />
-                {bullet}
+              <li key={bullet} data-bullet data-stage={index} className="flex items-start gap-2">
+                <span
+                  aria-hidden="true"
+                  className="mt-[7px] h-1 w-1 shrink-0 rounded-full"
+                  style={{ backgroundColor: border }}
+                />
+                <span
+                  data-terminal-text={stage.terminal ? "" : undefined}
+                  className="text-[12.5px] font-medium leading-snug text-[color:var(--color-text-primary)]"
+                >
+                  {bullet}
+                </span>
               </li>
             ))}
           </ul>
