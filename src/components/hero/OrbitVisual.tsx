@@ -129,7 +129,7 @@ export function OrbitVisual() {
   }, [reducedMotion]);
 
   return (
-    <div className="relative mx-auto w-full max-w-[440px]">
+    <div className="relative mx-auto w-full max-w-[500px]">
       {/* Desktop / tablet orbit layout */}
       <div className="relative hidden aspect-square lg:block">
         <svg
@@ -145,21 +145,22 @@ export function OrbitVisual() {
               d={mod.path}
               fill="none"
               stroke="var(--color-primary)"
-              strokeOpacity={0.28}
-              strokeWidth={1.5}
+              strokeOpacity={0.32}
+              strokeWidth={1.75}
             />
           ))}
           {MODULES.map((mod) => (
             <g key={mod.key} data-orbit-truck opacity={0}>
               <circle
-                r={9}
+                r={15}
                 fill="var(--color-primary)"
-                style={{ filter: "drop-shadow(0 2px 5px rgba(239,45,62,0.5))" }}
+                style={{ filter: "drop-shadow(0 3px 7px rgba(239,45,62,0.55))" }}
               />
+              <circle r={15} fill="none" stroke="#FFFFFF" strokeOpacity={0.55} strokeWidth={1.5} />
               <g
-                transform="scale(0.36) translate(-12,-12)"
+                transform="scale(0.56) translate(-12,-12)"
                 stroke="#FFFFFF"
-                strokeWidth={2.2}
+                strokeWidth={2.4}
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 fill="none"
@@ -175,18 +176,21 @@ export function OrbitVisual() {
         </svg>
 
         {/* Center badge */}
-        <div className="absolute inset-0 m-auto flex h-[168px] w-[168px] flex-col items-center justify-center rounded-full border border-[color:var(--color-primary-border)] bg-white text-center shadow-[0_8px_32px_rgba(239,45,62,0.16)]">
-          <span className="text-xs font-bold uppercase tracking-wide text-[color:var(--color-primary)]">
+        <div className="absolute inset-0 m-auto flex h-[184px] w-[184px] flex-col items-center justify-center rounded-full border border-[color:var(--color-primary-border)] bg-white text-center shadow-[0_8px_32px_rgba(239,45,62,0.16)]">
+          <span className="text-sm font-extrabold uppercase tracking-wide text-[color:var(--color-primary)]">
             TARIFF.IO Engine
           </span>
-          <span className="mt-1.5 px-6 text-[11px] leading-snug text-[color:var(--color-text-muted)]">
+          <span className="mt-2 px-7 text-[13px] font-medium leading-snug text-[color:var(--color-text-secondary)]">
             Compliance intelligence in motion
           </span>
         </div>
 
         {/* Status chip */}
-        <div className="absolute right-[2%] top-[22%] whitespace-nowrap rounded-full border border-[color:var(--color-border)] bg-white px-3 py-1.5 text-[11px] shadow-[0_4px_16px_rgba(0,0,0,0.08)]">
-          <LiveDot label="Connected to ingestion data stack" />
+        <div className="absolute right-[2%] top-[22%] whitespace-nowrap rounded-full border border-[color:var(--color-border)] bg-white px-4 py-2 shadow-[0_4px_16px_rgba(0,0,0,0.08)]">
+          <LiveDot
+            label="Connected to ingestion data stack"
+            className="text-[13px] font-semibold text-[color:var(--color-text-primary)]"
+          />
         </div>
 
         {MODULES.map((mod) => (
@@ -199,8 +203,11 @@ export function OrbitVisual() {
         {MODULES.map((mod) => (
           <ModulePill key={mod.key} module={mod} className="static" stacked />
         ))}
-        <div className="flex items-center justify-center rounded-full border border-[color:var(--color-border)] bg-white px-3 py-1.5 text-[11px]">
-          <LiveDot label="Connected to ingestion data stack" />
+        <div className="flex items-center justify-center rounded-full border border-[color:var(--color-border)] bg-white px-4 py-2">
+          <LiveDot
+            label="Connected to ingestion data stack"
+            className="text-[13px] font-semibold text-[color:var(--color-text-primary)]"
+          />
         </div>
       </div>
     </div>
@@ -220,17 +227,17 @@ function ModulePill({
   return (
     <div
       className={`${className} ${
-        stacked ? "" : "absolute w-[180px]"
-      } flex items-start gap-2.5 rounded-2xl border border-[color:var(--color-border)] bg-white p-3 shadow-[0_4px_20px_rgba(0,0,0,0.06)]`}
+        stacked ? "" : "absolute w-[208px]"
+      } flex items-start gap-3 rounded-2xl border border-[color:var(--color-border)] bg-white p-3.5 shadow-[0_6px_24px_rgba(0,0,0,0.08)]`}
     >
-      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[color:var(--color-primary-light)] text-[color:var(--color-primary)]">
-        <Icon size={16} strokeWidth={1.75} />
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[color:var(--color-primary-light)] text-[color:var(--color-primary)]">
+        <Icon size={19} strokeWidth={2} />
       </span>
       <span className="min-w-0">
-        <span className="block text-[13px] font-semibold text-[color:var(--color-text-primary)]">
+        <span className="block text-[15px] font-bold leading-tight text-[color:var(--color-text-primary)]">
           {module.label}
         </span>
-        <span className="mt-0.5 block text-[11px] leading-snug text-[color:var(--color-text-muted)]">
+        <span className="mt-1 block text-[13px] font-medium leading-snug text-[color:var(--color-text-secondary)]">
           {module.description}
         </span>
       </span>
