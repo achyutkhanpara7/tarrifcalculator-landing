@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Plus } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { WaveBackground } from "./hero/WaveBackground";
 import { OrbitVisual } from "./hero/OrbitVisual";
 
@@ -85,13 +85,13 @@ export function Hero() {
             className="mt-9"
           >
             <a
-              href="#cta"
-              className="group inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-[color:var(--color-text-primary)] px-6 py-3.5 text-sm font-semibold text-white transition-transform duration-200 hover:scale-[1.03] active:scale-[0.97]"
+              href="#platform"
+              className="group inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-[linear-gradient(135deg,#F04255_0%,#EF2D3E_55%,#C41230_100%)] px-6 py-3.5 text-sm font-semibold text-white shadow-[0_4px_20px_rgba(239,45,62,0.28)] transition-transform duration-200 hover:scale-[1.03] active:scale-[0.97]"
             >
-              Book a demo
-              <Plus
+              Explore the Platform
+              <ArrowRight
                 size={16}
-                className="transition-transform duration-200 group-hover:rotate-90"
+                className="transition-transform duration-200 group-hover:translate-x-0.5"
               />
             </a>
           </motion.div>

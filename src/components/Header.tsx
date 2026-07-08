@@ -31,7 +31,7 @@ export function Header() {
           href="#cta"
           className="cursor-pointer rounded-xl bg-[linear-gradient(135deg,#F04255_0%,#EF2D3E_55%,#C41230_100%)] px-4 py-2.5 text-sm font-semibold text-white shadow-[0_2px_8px_rgba(239,45,62,0.25)] transition-transform duration-200 hover:scale-[1.03] active:scale-[0.97]"
         >
-          Book a walkthrough
+          Sign In
         </a>
       </div>
     </header>
