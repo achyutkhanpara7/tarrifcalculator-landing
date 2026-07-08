@@ -7,6 +7,11 @@ import { ClassificationMockup } from "@/components/features/mockups/Classificati
 import { DutyCalculatorMockup } from "@/components/features/mockups/DutyCalculatorMockup";
 import { EntryAuditMockup } from "@/components/features/mockups/EntryAuditMockup";
 import { RateAlertsMockup } from "@/components/features/mockups/RateAlertsMockup";
+import { RiskSection } from "@/components/RiskSection";
+import { ScenarioCarousel } from "@/components/ScenarioCarousel";
+import { CompetitiveStrip } from "@/components/CompetitiveStrip";
+import { FinalCTA } from "@/components/FinalCTA";
+import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -55,7 +60,13 @@ export default function Home() {
             background="alt"
           />
         </div>
+
+        <RiskSection />
+        <ScenarioCarousel />
+        <CompetitiveStrip />
+        <FinalCTA />
       </main>
+      <Footer />
     </>
   );
 }
