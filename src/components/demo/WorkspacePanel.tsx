@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { animate, motion, AnimatePresence } from "framer-motion";
 import { PackageSearch } from "lucide-react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { LiveDot } from "@/components/LiveDot";
 import { confidenceTier, totalRate, type DemoResult } from "./data";
 
 function formatRate(value: number) {
@@ -65,13 +66,7 @@ export function WorkspacePanel({ result, runId }: WorkspacePanelProps) {
         <h3 className="text-sm font-semibold text-[color:var(--color-text-primary)]">
           Workspace
         </h3>
-        <span className="flex items-center gap-1.5 text-xs font-medium text-[color:var(--color-text-muted)]">
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-          </span>
-          Live
-        </span>
+        <LiveDot />
       </div>
 
       <div className="flex-1 rounded-2xl border border-[color:var(--color-border)] bg-white p-5">

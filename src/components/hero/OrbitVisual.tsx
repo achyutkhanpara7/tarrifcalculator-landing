@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { Search, BarChart3, FileText, Bell, type LucideIcon } from "lucide-react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { LiveDot } from "@/components/LiveDot";
 
 gsap.registerPlugin(MotionPathPlugin);
 
@@ -163,12 +164,8 @@ export function OrbitVisual() {
         </div>
 
         {/* Status chip */}
-        <div className="absolute right-[2%] top-[22%] flex items-center gap-2 whitespace-nowrap rounded-full border border-[color:var(--color-border)] bg-white px-3 py-1.5 text-[11px] font-medium text-[color:var(--color-text-secondary)] shadow-[0_4px_16px_rgba(0,0,0,0.08)]">
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-          </span>
-          Connected to ingestion data stack
+        <div className="absolute right-[2%] top-[22%] whitespace-nowrap rounded-full border border-[color:var(--color-border)] bg-white px-3 py-1.5 text-[11px] shadow-[0_4px_16px_rgba(0,0,0,0.08)]">
+          <LiveDot label="Connected to ingestion data stack" />
         </div>
 
         {MODULES.map((mod) => (
@@ -181,12 +178,8 @@ export function OrbitVisual() {
         {MODULES.map((mod) => (
           <ModulePill key={mod.key} module={mod} className="static" stacked />
         ))}
-        <div className="flex items-center justify-center gap-2 rounded-full border border-[color:var(--color-border)] bg-white px-3 py-1.5 text-[11px] font-medium text-[color:var(--color-text-secondary)]">
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-          </span>
-          Connected to ingestion data stack
+        <div className="flex items-center justify-center rounded-full border border-[color:var(--color-border)] bg-white px-3 py-1.5 text-[11px]">
+          <LiveDot label="Connected to ingestion data stack" />
         </div>
       </div>
     </div>
