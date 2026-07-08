@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Plus } from "lucide-react";
 import { WaveBackground } from "./hero/WaveBackground";
-import { RouteVisual } from "./hero/RouteVisual";
+import { OrbitVisual } from "./hero/OrbitVisual";
 
 const HEADLINE_LINE_1 = "Classification you can defend.";
 const HEADLINE_LINE_2 = "Duty you can trust.";
@@ -103,7 +103,7 @@ export function Hero() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <RouteVisual />
+          <OrbitVisual />
         </motion.div>
       </div>
     </section>
