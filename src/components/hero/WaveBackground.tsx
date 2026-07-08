@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { GridWave } from "./GridWave";
 
 export function WaveBackground() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -59,6 +60,8 @@ export function WaveBackground() {
             "radial-gradient(circle, #F04255 0%, #EF2D3E 50%, transparent 75%)",
         }}
       />
+
+      <GridWave />
     </div>
   );
 }

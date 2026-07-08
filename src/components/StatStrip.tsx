@@ -40,7 +40,7 @@ function StatNumber({ stat }: { stat: Stat }) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const reducedMotion = useReducedMotion();
-  const [display, setDisplay] = useState(reducedMotion ? stat.value : 0);
+  const [display, setDisplay] = useState(0);
 
   useEffect(() => {
     if (!isInView) return;
