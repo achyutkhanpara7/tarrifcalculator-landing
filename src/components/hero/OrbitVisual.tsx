@@ -2,9 +2,12 @@
 
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
+import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { Search, BarChart3, FileText, Bell, type LucideIcon } from "lucide-react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { LiveDot } from "@/components/LiveDot";
+
+gsap.registerPlugin(MotionPathPlugin);
 
 type ModulePosition = "N" | "E" | "S" | "W";
 
@@ -15,7 +18,6 @@ interface ModuleCard {
   icon: LucideIcon;
   position: ModulePosition;
   path: string;
-  truckPoint: [number, number];
 }
 
 const MODULES: ModuleCard[] = [
@@ -26,7 +28,6 @@ const MODULES: ModuleCard[] = [
     icon: Search,
     position: "N",
     path: "M200,200 Q160,130 200,60",
-    truckPoint: [180, 130],
   },
   {
     key: "calculate",
@@ -35,7 +36,6 @@ const MODULES: ModuleCard[] = [
     icon: BarChart3,
     position: "E",
     path: "M200,200 Q270,160 340,200",
-    truckPoint: [270, 180],
   },
   {
     key: "audit",
@@ -44,7 +44,6 @@ const MODULES: ModuleCard[] = [
     icon: FileText,
     position: "S",
     path: "M200,200 Q240,270 200,340",
-    truckPoint: [220, 270],
   },
   {
     key: "alerts",
@@ -53,7 +52,6 @@ const MODULES: ModuleCard[] = [
     icon: Bell,
     position: "W",
     path: "M200,200 Q130,240 60,200",
-    truckPoint: [130, 220],
   },
 ];
 
@@ -81,7 +79,10 @@ export function OrbitVisual() {
       if (reducedMotion) {
         gsap.set(path, { strokeDasharray: length, strokeDashoffset: 0 });
         const truck = trucks[index];
-        if (truck) gsap.set(truck, { opacity: 1, scale: 1 });
+        if (truck) {
+          const midpoint = path.getPointAtLength(length * 0.5);
+          gsap.set(truck, { x: midpoint.x, y: midpoint.y, opacity: 1, scale: 1 });
+        }
         return;
       }
 
@@ -108,6 +109,22 @@ export function OrbitVisual() {
               duration: 0.35,
               ease: "back.out(1.7)",
               transformOrigin: "center",
+              onComplete: () => {
+                tweens.push(
+                  gsap.to(truck, {
+                    motionPath: {
+                      path,
+                      align: path,
+                      alignOrigin: [0.5, 0.5],
+                      autoRotate: true,
+                    },
+                    duration: 3.2,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut",
+                  })
+                );
+              },
             }
           )
         );
@@ -120,9 +137,9 @@ export function OrbitVisual() {
   }, [reducedMotion]);
 
   return (
-    <div className="relative mx-auto w-full max-w-[500px]">
+    <div className="relative mx-auto w-full max-w-[440px]">
       {/* Desktop / tablet orbit layout */}
-      <div className="relative hidden aspect-square lg:block">
+      <div className="relative hidden aspect-square xl:block">
         <svg
           ref={svgRef}
           viewBox="0 0 400 400"
@@ -141,12 +158,7 @@ export function OrbitVisual() {
             />
           ))}
           {MODULES.map((mod) => (
-            <g
-              key={mod.key}
-              data-orbit-truck
-              opacity={0}
-              transform={`translate(${mod.truckPoint[0]},${mod.truckPoint[1]})`}
-            >
+            <g key={mod.key} data-orbit-truck opacity={0} transform="translate(200,200)">
               <circle
                 r={15}
                 fill="var(--color-primary)"
@@ -194,8 +206,8 @@ export function OrbitVisual() {
         ))}
       </div>
 
-      {/* Mobile: simple stacked list */}
-      <div className="grid gap-3 lg:hidden">
+      {/* Mobile/tablet/small-desktop: simple stacked list */}
+      <div className="grid gap-3 xl:hidden">
         {MODULES.map((mod) => (
           <ModulePill key={mod.key} module={mod} className="static" stacked />
         ))}
@@ -223,8 +235,8 @@ function ModulePill({
   return (
     <div
       className={`${className} ${
-        stacked ? "" : "absolute w-[208px]"
-      } flex items-start gap-3 rounded-2xl border border-[color:var(--color-border)] bg-white p-3.5 shadow-[0_6px_24px_rgba(0,0,0,0.08)]`}
+        stacked ? "" : "absolute w-[188px]"
+      } flex items-start gap-3 rounded-2xl border border-[color:var(--color-border)] bg-white p-3 shadow-[0_6px_24px_rgba(0,0,0,0.08)]`}
     >
       <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[color:var(--color-primary-light)] text-[color:var(--color-primary)]">
         <Icon size={19} strokeWidth={2} />
