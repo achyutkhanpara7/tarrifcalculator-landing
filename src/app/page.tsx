@@ -1,5 +1,6 @@
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
+import { PipelineDiagram } from "@/components/PipelineDiagram";
 import { StatStrip } from "@/components/StatStrip";
 import { LiveDemoWidget } from "@/components/demo/LiveDemoWidget";
 import { FeatureSection } from "@/components/features/FeatureSection";
@@ -19,6 +20,7 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
+        <PipelineDiagram />
         <StatStrip />
         <LiveDemoWidget />
 
