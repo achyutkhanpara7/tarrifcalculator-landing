@@ -2,7 +2,6 @@
 
 const NAV_LINKS = [
   { label: "Platform", href: "#platform" },
-  { label: "Live demo", href: "#demo" },
   { label: "Why it matters", href: "#why-it-matters" },
 ];
 

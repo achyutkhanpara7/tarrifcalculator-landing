@@ -2,7 +2,6 @@ import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { PipelineDiagram } from "@/components/PipelineDiagram";
 import { StatStrip } from "@/components/StatStrip";
-import { LiveDemoWidget } from "@/components/demo/LiveDemoWidget";
 import { FeatureSection } from "@/components/features/FeatureSection";
 import { ClassificationMockup } from "@/components/features/mockups/ClassificationMockup";
 import { DutyCalculatorMockup } from "@/components/features/mockups/DutyCalculatorMockup";
@@ -22,7 +21,6 @@ export default function Home() {
         <Hero />
         <StatStrip />
         <PipelineDiagram />
-        <LiveDemoWidget />
 
         <div id="platform">
           <FeatureSection
