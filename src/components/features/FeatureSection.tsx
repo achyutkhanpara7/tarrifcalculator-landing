@@ -86,15 +86,18 @@ export function FeatureSection({
       }`}
     >
       <div ref={contentRef} className="relative mx-auto max-w-7xl">
-        <span
-          aria-hidden="true"
-          className="pointer-events-none block select-none text-[6rem] font-extrabold leading-none text-[color:var(--color-primary)] opacity-[0.09] sm:text-[8rem]"
-        >
-          {index}
-        </span>
-
-        <div className="relative -mt-14 grid grid-cols-1 items-center gap-12 sm:-mt-20 lg:grid-cols-2 lg:gap-16">
-          <div className={`order-2 ${align === "right" ? "lg:order-1" : "lg:order-2"}`}>
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          <div
+            className={`relative order-2 pt-10 sm:pt-14 ${
+              align === "right" ? "lg:order-1" : "lg:order-2"
+            }`}
+          >
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute -top-2 left-0 -z-10 select-none text-[6rem] font-extrabold leading-none text-[color:var(--color-primary)] opacity-[0.09] sm:text-[8rem]"
+            >
+              {index}
+            </span>
             <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-[color:var(--color-primary)]">
               {eyebrow}
             </p>
